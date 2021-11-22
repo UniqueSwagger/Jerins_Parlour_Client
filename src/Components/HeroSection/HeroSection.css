@@ -1,0 +1,6 @@
+@media only screen and (max-width: 768px) {
+  .hero-image,
+  .hero-text {
+    width: 90% !important;
+  }
+}

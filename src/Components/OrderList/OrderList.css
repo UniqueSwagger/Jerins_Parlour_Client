@@ -1,0 +1,21 @@
+th,
+tr,
+td {
+  border-style: none;
+}
+.table {
+  border-collapse: separate;
+  border-spacing: 0px;
+}
+.name {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.action {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.admin {
+  border-radius: 35px;
+  z-index: 999;
+}

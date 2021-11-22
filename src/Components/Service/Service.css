@@ -1,0 +1,16 @@
+.service {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s linear;
+}
+.service:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+@media only screen and (max-width: 768px) {
+  .service {
+    width: 75%;
+    margin: 0 auto;
+  }
+}

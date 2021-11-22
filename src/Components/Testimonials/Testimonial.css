@@ -1,0 +1,13 @@
+.carousel-control-prev-icon {
+  background-color: black;
+}
+.carousel-control-next-icon {
+  background-color: black;
+}
+.carousel-indicators [data-bs-target] {
+  background-color: black;
+}
+.carousel-inner {
+  height: 550px;
+  width: 100%;
+}
