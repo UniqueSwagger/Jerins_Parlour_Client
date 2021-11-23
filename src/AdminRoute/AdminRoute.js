@@ -6,11 +6,10 @@ import useAuth from "../hooks/useAuth";
 const AdminRoute = ({ children, ...rest }) => {
   const {
     currentUser: { email },
-    loading,
+    isAdminLoading,
     admin,
   } = useAuth();
-
-  if (loading) {
+  if (isAdminLoading) {
     return <Loader />;
   }
   return (
@@ -22,7 +21,7 @@ const AdminRoute = ({ children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: "/NotFound",
               state: {
                 from: location,
               },

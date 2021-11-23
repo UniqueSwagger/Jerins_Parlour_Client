@@ -17,12 +17,14 @@ import { NavLink, useRouteMatch, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 import OrderList from "../OrderList/OrderList";
 import AddService from "../AddService/AddService";
+import useAuth from "../../hooks/useAuth";
 import MakeAdmin from "../MakeAdmin/MakeAdmin";
 const drawerWidth = 240;
 
 const AdminDashBoard = (props) => {
   let { path, url } = useRouteMatch();
   const { window } = props;
+  const { admin } = useAuth();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -148,15 +150,19 @@ const AdminDashBoard = (props) => {
 
         <div style={{ height: "100vh" }} className="bg-light ">
           <Switch>
-            <PrivateRoute exact path={path}>
-              <OrderList />
-            </PrivateRoute>
-            <Route path={`${path}/addService`}>
-              <AddService />
-            </Route>
-            <Route path={`${path}/makeAdmin`}>
-              <MakeAdmin />
-            </Route>
+            {admin && (
+              <>
+                <PrivateRoute exact path={path}>
+                  <OrderList />
+                </PrivateRoute>
+                <Route path={`${path}/addService`}>
+                  <AddService />
+                </Route>
+                <Route path={`${path}/makeAdmin`}>
+                  <MakeAdmin />
+                </Route>
+              </>
+            )}
           </Switch>
         </div>
       </AppBar>

@@ -20,14 +20,12 @@ const useFirebase = () => {
   //all state
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isAdminLoading, setIsAdminLoading] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const [token, setToken] = useState("");
   //all provider
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
-
-  //getting admin
-  const adminStatus = JSON.parse(localStorage.getItem("admin"));
-  const admin = adminStatus?.admin;
 
   // handle sign up
   const handleSignup = (email, password, name) => {
@@ -107,14 +105,23 @@ const useFirebase = () => {
 
   //admin check
   useEffect(() => {
-    setLoading(true);
-    return axios
+    setIsAdminLoading(true);
+    axios
       .get(
         `https://vast-plains-88495.herokuapp.com/users/${currentUser?.email}`
       )
-      .then((res) => localStorage.setItem("admin", JSON.stringify(res.data)))
-      .finally(() => setLoading(false));
-  }, [currentUser?.email, admin]);
+      .then((res) => {
+        setAdmin(res.data.admin);
+        if (admin) {
+          setIsAdminLoading(false);
+        }
+        setInterval(() => {
+          if (!admin) {
+            setIsAdminLoading(false);
+          }
+        }, 5000);
+      });
+  }, [admin, currentUser?.email]);
 
   // observing the current user
   useEffect(() => {
@@ -146,6 +153,8 @@ const useFirebase = () => {
     loading,
     token,
     admin,
+    isAdminLoading,
+    setLoading,
     setCurrentUser,
     handleGoogleSignIn,
     handleGithubSignIn,
